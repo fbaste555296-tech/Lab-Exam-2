@@ -1,1 +1,41 @@
+import random
+
+def generate_winning_numbers():
+    return random.sample(range(1, 61), 6)
+
+def check_player_card(winning_numbers, player_name, player_card):
+    matched = [num for num in player_card if num in winning_numbers]
+    matched_count = len(matched)
+    
+    if matched_count == 6:
+        print(f"Jackpot! {player_name} matched all 6 numbers {matched}. You won a million pesos!")
+    elif matched_count > 0:
+        prize = matched_count * 1000
+        print(f"{player_name} matched {matched_count} numbers {matched}. You won {prize} pesos!")
+    else:
+        print(f"{player_name} did not match any numbers.")
+
+def main():
+    winning_numbers = generate_winning_numbers()
+    print("Winning numbers:", winning_numbers)
+    
+    num_players = int(input("How many players? "))
+    for _ in range(num_players):
+        name = input("Enter player name: ")
+        
+        while True:
+            numbers = input("Enter 6 unique numbers (1-60) separated by spaces: ")
+            try:
+                player_card = list(map(int, numbers.split()))
+                if len(player_card) == 6 and len(set(player_card)) == 6 and all(1 <= n <= 60 for n in player_card):
+                    break
+                else:
+                    print("Please enter exactly 6 unique numbers between 1 and 60.")
+            except:
+                print("Invalid input. Please enter numbers only.")
+        
+        check_player_card(winning_numbers, name, player_card)
+
+if __name__ == "__main__":
+    main()
 
