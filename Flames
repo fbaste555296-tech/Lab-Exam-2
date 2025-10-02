@@ -1,1 +1,53 @@
+def flames_game(name1, name2):
+    
+    name1 = name1.lower()
+    name2 = name2.lower()
+    
+    
+    common_chars = set(name1) & set(name2)
+    for ch in common_chars:
+        count1 = name1.count(ch)
+        count2 = name2.count(ch)
+        min_count = min(count1, count2)
+        for _ in range(min_count):
+            name1 = name1.replace(ch, '', 1)
+            name2 = name2.replace(ch, '', 1)
+
+  
+    count1 = len(name1)
+    count2 = len(name2)
+    total_count = count1 + count2
+
+    if total_count == 0:
+        return "Not compatible! Single forever </3"
+    
+    flames = ['F', 'L', 'A', 'M', 'E', 'S']
+
+    
+    while len(flames) > 1:
+        split_index = (total_count % len(flames)) - 1
+        if split_index >= 0:
+            right = flames[split_index+1:]
+            left = flames[:split_index]
+            flames = right + left
+        else:
+            flames = flames[:len(flames)-1]
+
+    result_dict = {
+        'F': 'Friendship',
+        'L': 'Love',
+        'A': 'Affection',
+        'M': 'Marriage',
+        'E': 'Enemy',
+        'S': 'Sister'
+    }
+
+    return result_dict[flames[0]]
+
+
+
+name1 = input("Enter your name: ")
+name2 = input("Enter your partner's name: ")
+result = flames_game(name1, name2)
+print("FLAMES Result:", result)
 
