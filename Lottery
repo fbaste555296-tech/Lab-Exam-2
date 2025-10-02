@@ -17,9 +17,10 @@ def check_player_card(winning_numbers, player_name, player_card):
 
 def main():
     winning_numbers = generate_winning_numbers()
-    print("Winning numbers:", winning_numbers)
     
     num_players = int(input("How many players? "))
+    player_data = []
+    
     for _ in range(num_players):
         name = input("Enter player name: ")
         
@@ -34,8 +35,12 @@ def main():
             except:
                 print("Invalid input. Please enter numbers only.")
         
+        player_data.append((name, player_card))
+    
+    print("\nWinning numbers:", winning_numbers)
+    
+    for name, player_card in player_data:
         check_player_card(winning_numbers, name, player_card)
 
 if __name__ == "__main__":
     main()
-
